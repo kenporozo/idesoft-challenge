@@ -22,41 +22,41 @@ import java.util.stream.Collectors;
 @Slf4j
 public class IdesoftsChallengeApplication {
 
-	private static final String URL = "https://farmanet.minsal.cl/index.php/ws/getLocales";
-
-	public static List<Local> locales;
+//	private static final String URL = "https://farmanet.minsal.cl/index.php/ws/getLocales";
+//
+//	public static List<Local> locales;
 
 	public static void main(String[] args) {
 		SpringApplication.run(IdesoftsChallengeApplication.class, args);
 	}
 
-	@Bean
-	public static RestTemplate restTemplate(){
-		RestTemplate restTemplate = new RestTemplate();
-		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-		messageConverters.add(converter);
-		restTemplate.setMessageConverters(messageConverters);
-		return restTemplate;
-	}
-
-	@Bean
-	CommandLineRunner run() {
-		return args -> {
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-			ResponseEntity<Object[]> response = restTemplate().exchange(URL, HttpMethod.GET, new HttpEntity<>(httpHeaders), Object[].class);
-			Object[] objects = response.getBody();
-			ObjectMapper mapper = new ObjectMapper();
-
-			if (objects != null) {
-				locales = Arrays.stream(objects)
-								.map(object -> mapper.convertValue(object, Local.class))
-								.collect(Collectors.toList());
-			}
-			log.info("The list have been started with {} records", locales.size());
-		};
-	}
+//	@Bean
+//	public static RestTemplate restTemplate(){
+//		RestTemplate restTemplate = new RestTemplate();
+//		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+//		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+//		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+//		messageConverters.add(converter);
+//		restTemplate.setMessageConverters(messageConverters);
+//		return restTemplate;
+//	}
+//
+//	@Bean
+//	CommandLineRunner run() {
+//		return args -> {
+//			HttpHeaders httpHeaders = new HttpHeaders();
+//			httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//			ResponseEntity<Object[]> response = restTemplate().exchange(URL, HttpMethod.GET, new HttpEntity<>(httpHeaders), Object[].class);
+//			Object[] objects = response.getBody();
+//			ObjectMapper mapper = new ObjectMapper();
+//
+//			if (objects != null) {
+//				locales = Arrays.stream(objects)
+//								.map(object -> mapper.convertValue(object, Local.class))
+//								.collect(Collectors.toList());
+//			}
+//			log.info("The list have been started with {} records", locales.size());
+//		};
+//	}
 
 }
